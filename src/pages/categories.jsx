@@ -1,19 +1,11 @@
 import { CategoriesList } from "../components/CategoriesList/CategoriesList";
 import { CategoryItem } from "../components/CategoryItem/CategoryItem";
 import { useEffect, useState } from "react";
-import axios from 'axios'
+import { useFetch } from "../hooks/useFetch";
 export default function Categories() {
-  const [categoriesResp, setCategoriesResp] = useState([]);
-  const [errorResp, setErrorResp] = useState(null);
-  const [isLoading, setIsLoading] = useState(true)
-
-  useEffect(() => {
-    axios.get('https://api.escuelajs.co/api/v1/categories')
-    .then(response => setCategoriesResp(response))
-    .catch(error => setErrorResp(error, "error"))
-    .finally(() => setIsLoading(false));
-
-  }, [])
+  const [categoriesResp, errorResp, isLoading] = useFetch(
+    `https://api.escuelajs.co/api/v1/categories`
+  );
   
   if (isLoading) {
     return <h2>request is still in process, loading..</h2>;
@@ -25,8 +17,14 @@ export default function Categories() {
   }
   return (
     <div>
-    <CategoriesList data={categoriesResp.data}/>
-    <CategoryItem/>
+    <CategoriesList>
+      {categoriesResp.data.map(({id,name,image}, index) => {
+            return (
+            <CategoryItem key={id || index} name={name} image={image} />
+              
+            );
+          })}
+    </CategoriesList>
   </div>
 );
 }
