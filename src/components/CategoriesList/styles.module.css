@@ -1,0 +1,27 @@
+.layout {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+    padding: 2em;
+    gap: 1em;
+  }
+  
+  .layout div {
+    display: flex;
+    flex-direction: column;
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  
+  .layout h3 {
+    background-color: darkblue;
+    color: #ccc;
+    margin: 0em;
+  }
+  
+  .layout img {
+    width: 10em;
+    height: 10em;
+    object-fit: cover;
+  }
